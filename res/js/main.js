@@ -1,18 +1,11 @@
-const canvas = document.querySelector('canvas');
-const c = canvas.getContext('2d');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 const image = new Image();
 image.src = './res/img/Rocket.jpg';
 
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
 class Player {
     constructor() {
-        this.position = {
-            x: 750,
-            y: 375
-        }
 
         this.velocity = {
             x: 0,
@@ -23,26 +16,60 @@ class Player {
             this.image = image;
             this.width = image.width;
             this.height = image.height;
+            this.position = {
+                x: canvas.width / 2 - this.width / 2,
+                y: canvas.height / 2 - this.height / 2
+            }
         }
     }
 
     draw() {
-        //c.fillStyle = 'red';
-        //c.fillRect(this.position.x, this.position.y, this.width, this.height);
+        //ctx.fillStyle = 'red';
+        //ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
         if (this.image) {
-            c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+            ctx.drawImage(
+                this.image,
+                this.position.x,
+                this.position.y,
+                this.width,
+                this.height
+            );
+
         }
     }
+
 }
 
 const player = new Player();
 player.draw();
 
 function animate() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     requestAnimationFrame(animate);
-    c.fillStyle = 'black';
-    c.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     player.draw();
 }
 
 animate();
+
+document.addEventListener("keydown", ({ key }) => {
+    switch (key) {
+        case 'ArrowUp':
+            console.log('up');
+            break;
+        case 'ArrowLeft':
+            console.log('Rotate left');
+            break;
+        case 'ArrowRight':
+            console.log('Rotate right');
+            break;
+        case ' ':
+            console.log('Pew');
+            break;
+        case 'Shift':
+            console.log('Boost');
+            break;
+    }
+});
