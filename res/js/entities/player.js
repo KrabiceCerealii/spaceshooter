@@ -1,4 +1,5 @@
 import { canvas, ctx } from "../canvas.js";
+import { Meteor } from "./meteor.js";
 
 export class SpaceShip {
   constructor() {
@@ -59,7 +60,7 @@ export class SpaceShip {
     );
 
     ctx.restore();
-    console.log(this.status);
+   // console.log(this.status);
   }
 
   update() {

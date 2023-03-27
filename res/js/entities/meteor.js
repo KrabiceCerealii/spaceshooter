@@ -1,18 +1,19 @@
 import { canvas, ctx } from "../canvas.js";
 import { SpaceShip } from "./player.js";
 
+let random_n = Math.floor((Math.random() * 100) + 50);
 
-export class Projectile {
-    constructor(ship_x, ship_y) {
+export class Meteor {
+    constructor() {
         this.image = new Image();
-        this.image.src = "/res/img/projectile.jpg";
+        this.image.src = "/res/img/asteroid.jpg";
         this.size = {
-          x: 10,
-          y: 10,
+          x: random_n,
+          y: random_n,
         };
         this.position = {
-          x: ship_x,
-          y: ship_y
+          x: 100,
+          y: 100
         } 
       }
 
