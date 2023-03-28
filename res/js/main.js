@@ -17,7 +17,7 @@ function closingCode(){
 }
 */
 
-//let ticker;
+let ticker = 0;
 const ship = new SpaceShip();
 const projectile = new Projectile(ship.position.x, ship.position.y - ship.size.y/2);
 const meteor = new Meteor(ship.position.x, ship.position.y - ship.size.y/2);
@@ -42,7 +42,7 @@ function gameLoop() {
   //projectile.update();
   projectile.draw();
   meteor.draw();
-  /*ticker++;
-  console.log(ticker);*/
+  ticker++;
+  console.log(ticker);
   requestAnimationFrame(gameLoop);
 }
