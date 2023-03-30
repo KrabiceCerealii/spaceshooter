@@ -39,9 +39,6 @@ export class Meteor {
     }
   }
 
-  /*collisin(SpaceShip, Meteor){
-      if
-  }*/
 
   draw() {
     ctx.drawImage(
