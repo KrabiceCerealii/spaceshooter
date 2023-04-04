@@ -4,7 +4,7 @@ import { Meteor } from "./meteor.js";
 export class SpaceShip {
   constructor() {
     this.image = new Image();
-    this.image.src = "/res/img/Rocket.jpg";
+    this.image.src = ".../img/Rocket.jpg";
     this.size = {
       x: 100,
       y: 100,

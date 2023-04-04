@@ -10,7 +10,7 @@ export class Meteor {
     this.image = new Image();
     this.velocityX = Math.floor(Math.random() * 4 +1);
     this.velocityY = Math.floor(Math.random() * 2 +1);
-    this.image.src = "/res/img/asteroid.jpg";
+    this.image.src = ".../img/asteroid.jpg";
     this.size = Math.floor(Math.random() * 100 + 50);
     this.position = {
       x: getRndInteger(0, canvas.width),
