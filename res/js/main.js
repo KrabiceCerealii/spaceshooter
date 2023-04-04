@@ -1,17 +1,10 @@
 import { clearCanvas, fullScreen, canvas } from "./canvas.js";
 import { SpaceShip } from "./entities/player.js";
-import { Projectile } from "./entities/shooting.js";
 import { Meteor } from "./entities/meteor.js";
 const wrapik = document.getElementById("wrapper");
 const button = document.getElementById("btn");
 const canvasek = document.getElementById("canvas");
-let start = false;
 
-button.onclick = ()=>{
-  canvasek.style.display = "flex";
-  wrapik.style.display = "none";
-  start === true;
-};
 
 fullScreen();
 
@@ -29,54 +22,43 @@ function closingCode(){
 
 let ticker = 0;
 const ship = new SpaceShip();
-const projectile = new Projectile(ship.position.x, ship.position.y - ship.size.y/2, ship.rotation);
-const meteor = new Meteor();
-let shoot = [];
-let enemy = [new Meteor, new Meteor, new Meteor];
-
+let enemy = [new Meteor()];
 
 ship.image.onload = () => {
-  if(start === true){
   ship.draw();
-  }
   gameLoop();
 };
 
-/*function collision(){
-    for (let i = 0; i < enemy.length; i++) {
-      if(ship.position.x + ship.width >= enemy[i].position.x &&
-        ship.position.x <= enemy[i].position.x + meteor.width &&
-        ship.position.y + ship.height >= enemy[i].position.y &&
-        ship.position.y <= enemy[i].position.y + meteor.height){
-          console.log("kokot")
-        }
+function collision() {
+  enemy.forEach((meteor, i) => {
+    if (
+      ship.position.x < meteor.position.x + meteor.size &&
+      ship.position.x + ship.size.x > meteor.position.x &&
+      ship.position.y < meteor.position.y + meteor.size &&
+      ship.size.y + ship.position.y > meteor.position.y
+    ) {
+      enemy = [...enemy.splice(0, i),...enemy.splice(i+1, enemy.length)]
+      enemy.push(new Meteor(), new Meteor());
     }
-  }*/
+  });
+}
 
-function gameLoop() {
+const gameLoop = ()=> {
   clearCanvas();
   ship.update();
   ship.draw();
   //ticker++;
   //console.log(ticker);
-  enemy.forEach( (teacher) =>{
-    teacher.update(canvas);
-    teacher.draw();
+  enemy.forEach( (enemy) =>{
+    enemy.update(canvas);
+    enemy.draw();
   });
-  //collision();
-  /*shoot.forEach( (projetill) =>{
-    projetill.update();
-    projetill.draw();
-  })*/
+  collision();
   requestAnimationFrame(gameLoop);
-  console.log(start);
 }
 
-
-window.addEventListener("keydown", (e) => {
-  switch (e.key) {
-    case " ":
-      shoot.push(new Projectile(ship.position.x, ship.position.y - ship.size.y/2, ship.rotation));
-      break;
-  }
-});
+button.onclick = ()=>{
+  canvasek.style.display = "flex";
+  wrapik.style.display = "none";
+  gameLoop();
+};
