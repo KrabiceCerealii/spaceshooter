@@ -1,4 +1,4 @@
-import { clearCanvas, fullScreen, canvas } from "./canvas.js";
+import { clearCanvas, fullScreen, canvas, ctx } from "./canvas.js";
 import { SpaceShip } from "./entities/player.js";
 import { Meteor } from "./entities/meteor.js";
 const wrapik = document.getElementById("wrapper");
@@ -21,12 +21,13 @@ function closingCode(){
 */
 
 let ticker = 0;
+let hp = 5;
+let score = 0;
 const ship = new SpaceShip();
 let enemy = [new Meteor()];
 
 ship.image.onload = () => {
   ship.draw();
-  gameLoop();
 };
 
 function collision() {
@@ -39,16 +40,53 @@ function collision() {
     ) {
       enemy = [...enemy.splice(0, i),...enemy.splice(i+1, enemy.length)]
       enemy.push(new Meteor(), new Meteor());
+      hp --;
+      score += 50;
     }
   });
 }
 
+function hpGraber() {
+  ctx.fillStyle = "white";
+  ctx.font = "bold 50px Axeman";
+  ctx.fillText(`HP: ${hp}`, 20, 60);
+  if(ticker%1000 == 0){
+    if(hp == 5){}
+    else{
+      hp++
+    }
+  }
+  if(hp == 0){
+    ctx.fillStyle = "white";
+    ctx.font = "bold 100px Axeman";
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillText("Game Over", canvas.width/2 - 100, canvas.height/2);
+    clearInterval(gameLoop);
+  }
+}
+
+function scoreGraber() {
+  ctx.fillStyle = "white";
+  ctx.font = "bold 50px Axeman";
+  ctx.fillText(`Score: ${score}`, 20, 120);
+  if(hp == 0){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
+
+button.onclick = ()=>{
+  canvasek.style.display = "flex";
+  wrapik.style.display = "none";
+  gameLoop();
+};
+
 const gameLoop = ()=> {
   clearCanvas();
+  scoreGraber();
+  hpGraber();
   ship.update();
   ship.draw();
-  //ticker++;
-  //console.log(ticker);
+  ticker++;
   enemy.forEach( (enemy) =>{
     enemy.update(canvas);
     enemy.draw();
@@ -57,8 +95,3 @@ const gameLoop = ()=> {
   requestAnimationFrame(gameLoop);
 }
 
-button.onclick = ()=>{
-  canvasek.style.display = "flex";
-  wrapik.style.display = "none";
-  gameLoop();
-};
