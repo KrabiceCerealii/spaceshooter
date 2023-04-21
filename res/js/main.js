@@ -21,7 +21,7 @@ function closingCode(){
 */
 
 let ticker = 0;
-let hp = 5;
+let hp = 3;
 let score = 0;
 const ship = new SpaceShip();
 let enemy = [new Meteor()];
