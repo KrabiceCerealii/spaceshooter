@@ -20,8 +20,7 @@ function closingCode(){
 }
 */
 
-let ticker = 0;
-let hp = 3;
+let hp = 2;
 let score = 0;
 const ship = new SpaceShip();
 let enemy = [new Meteor()];
@@ -40,7 +39,7 @@ function collision() {
     ) {
       enemy = [...enemy.splice(0, i),...enemy.splice(i+1, enemy.length)]
       enemy.push(new Meteor(), new Meteor());
-      hp --;
+      hp--;
       score += 50;
     }
   });
@@ -50,17 +49,9 @@ function hpGraber() {
   ctx.fillStyle = "white";
   ctx.font = "bold 50px Axeman";
   ctx.fillText(`HP: ${hp}`, 20, 60);
-  if(ticker%1000 == 0){
-    if(hp == 5){}
-    else{
-      hp++
-    }
-  }
-  if(hp == 0){
-    ctx.fillStyle = "white";
-    ctx.font = "bold 100px Axeman";
+  if (hp < 1) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillText("Game Over", canvas.width/2 - 100, canvas.height/2);
+    document.getElementById("endscreen").style.display = "flex";
     clearInterval(gameLoop);
   }
 }
@@ -69,9 +60,6 @@ function scoreGraber() {
   ctx.fillStyle = "white";
   ctx.font = "bold 50px Axeman";
   ctx.fillText(`Score: ${score}`, 20, 120);
-  if(hp == 0){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
 }
 
 button.onclick = ()=>{
@@ -79,6 +67,7 @@ button.onclick = ()=>{
   wrapik.style.display = "none";
   gameLoop();
 };
+setInterval(()=> (hp < 5 && hp > 1)? hp++ : null,5000)
 
 const gameLoop = ()=> {
   clearCanvas();
@@ -86,7 +75,6 @@ const gameLoop = ()=> {
   hpGraber();
   ship.update();
   ship.draw();
-  ticker++;
   enemy.forEach( (enemy) =>{
     enemy.update(canvas);
     enemy.draw();
@@ -94,4 +82,3 @@ const gameLoop = ()=> {
   collision();
   requestAnimationFrame(gameLoop);
 }
-
