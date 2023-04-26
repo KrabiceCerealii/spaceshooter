@@ -56,7 +56,7 @@ canvas {
 #btn:hover{
   scale: 1.2;
 }
-#g_name{
+#g_name, #score{
   color:blanchedalmond;
   font-size: 80px;
   justify-content: center;

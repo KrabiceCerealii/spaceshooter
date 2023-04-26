@@ -51,6 +51,7 @@ function hpGraber() {
   ctx.fillText(`HP: ${hp}`, 20, 60);
   if (hp < 1) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById("score").innerHTML = `Skore: ${score}`;
     document.getElementById("endscreen").style.display = "flex";
     clearInterval(gameLoop);
   }
