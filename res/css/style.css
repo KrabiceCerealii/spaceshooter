@@ -14,6 +14,10 @@ body {
   
 }
 
+.preskrtnuti {
+  text-decoration: line-through;
+}
+
 canvas {
   border: 2px solid white;
   margin-top: 50px;
@@ -29,6 +33,7 @@ canvas {
   justify-content: space-between;
   height: 100vh;
   padding: 35vh 0;
+  text-align: center;
 }
 #endscreen {
   z-index: 10;
