@@ -67,7 +67,7 @@ button.onclick = ()=>{
   wrapik.style.display = "none";
   gameLoop();
 };
-setInterval(()=> (hp < 5 && hp > 1)? hp++ : null,5000)
+setInterval(()=> (hp < 5 && hp > 1)? hp++ : null,10000)
 
 const gameLoop = ()=> {
   clearCanvas();
